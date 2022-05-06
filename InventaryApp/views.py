@@ -35,3 +35,20 @@ def productApi(request,id=0):
         product=Products.objects.get(ProductId=id)
         product.delete()
         return JsonResponse("Deleted Successfully",safe=False)
+
+
+def listProductsApi(request):
+    if request.method=='GET':
+        products = Products.objects.all()
+        products_serializer = ProductSerializer(products,many=True)
+        test = products_serializer.data
+        listProducts = []
+        for i in test:
+            cont = 0
+            for key, value in i.items():
+                if cont == 1:
+                    listProducts.append(value)
+                cont += 1
+
+        return JsonResponse(listProducts,safe=False)
+    return JsonResponse("Solo se acepta petición GET",safe=False)
