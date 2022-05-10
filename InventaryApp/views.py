@@ -52,3 +52,20 @@ def listProductsApi(request):
 
         return JsonResponse(listProducts,safe=False)
     return JsonResponse("Solo se acepta petición GET",safe=False)
+
+
+def productByName(request, string):
+    if request.method=='GET':
+        products = Products.objects.all()
+        products_serializer=ProductSerializer(products,many=True)
+        test = products_serializer.data
+        for i in test:
+            cont = 0
+            for key, value in i.items():
+                if cont == 1:
+                    if value == string:
+                        return JsonResponse(i,safe=False)
+                    #listProducts.append(value)
+                cont += 1
+
+    return JsonResponse("Solo se acepta petición GET",safe=False)       

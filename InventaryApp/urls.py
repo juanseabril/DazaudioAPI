@@ -4,5 +4,5 @@ from InventaryApp import views
 urlpatterns=[
     url(r'^product$',views.productApi),
     url(r'^product/([0-9]+)$',views.productApi),
-    url(r'^listproducts$',views.listProductsApi)
-]
+    url(r'^listproducts$',views.listProductsApi),
+    url(r'^productbyname/(?P<string>[\w\-]+)/$', views.productByName)]
